@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "target": "esnext",
+      "lib": ["es6", "es7", "dom"],
+      "jsx": "react",
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "removeComments": false,
+      "typeRoots": [
+        "./node_modules/@types",
+        "**/typings"
+      ]
+  },
+  "exclude": [
+      "dist", 
+      "build", 
+      "node_modules"
+    ],
+  "include": [
+      "./src/**/*"
+  ]
+}
