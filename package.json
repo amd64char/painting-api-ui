@@ -1,5 +1,6 @@
 {
   "name": "painting-api-ui",
+  "author": "Charlie Seitz",
   "version": "1.0.0",
   "description": "Fun front-end UI using React with TypeScript",
   "main": "index.html",
@@ -8,12 +9,17 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@types/bootbox": "^4.4.36",
+    "@types/dotenv-webpack": "^1.7.0",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "autoprefixer": "^9.4.6",
     "awesome-typescript-loader": "^5.2.1",
+    "axios": "^0.18.0",
+    "bootbox": "^4.4.0",
     "bootstrap": "^4.2.1",
     "css-loader": "^2.1.0",
+    "dotenv-webpack": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",

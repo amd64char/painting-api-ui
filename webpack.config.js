@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require("path");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -11,7 +12,8 @@ module.exports = {
     new HtmlWebpackPlugin({  // Also generate a test.html
         filename: 'index.html',
         template: './index.html'
-    })
+    }),
+    new Dotenv()
   ],
   
   // webpack-dev-server

@@ -1,14 +1,35 @@
-import * as React from "react"
+import * as React from "react";
+import 'bootstrap';
+import axios from 'axios';
+import bootbox from 'bootbox';
 
-export interface MainProps {
+interface MainProps {
   compiler: string; 
   framework: string;
+  ApiBaseUrl: string;
 }
 
-export class Main extends React.Component<MainProps, {}> {
+interface MainData {
+  paintings: string[];
+  paintingCount: number;
+}
+
+export class Main extends React.Component<MainProps, MainData> {
   constructor(props: MainProps) {
     super(props);
-    
+    this.state = {
+      paintings: [],
+      paintingCount: 0
+    };
+  }
+
+  async getAll() {
+      const res = await axios(this.props.ApiBaseUrl + '/data');
+      return res;
+  }
+
+  componentDidMount() {
+
   }
 
   render() {

@@ -7,6 +7,7 @@ export interface AppProps {
   compiler: string; 
   framework: string;
   currentDate: string;
+  apiBaseUrl: string;
 }
 
 export class App extends React.Component<AppProps, {}> {
@@ -20,7 +21,7 @@ export class App extends React.Component<AppProps, {}> {
     return (
       <>
         <Header />
-        <Main compiler={this.props.compiler} framework={this.props.framework} />
+        <Main compiler={this.props.compiler} framework={this.props.framework} ApiBaseUrl={this.props.apiBaseUrl} />
         <Footer currentDate={this.props.currentDate} />
       </>
     );
