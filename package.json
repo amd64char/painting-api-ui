@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/bootbox": "^4.4.36",
     "@types/dotenv-webpack": "^1.7.0",
+    "@types/jquery": "^3.3.29",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "autoprefixer": "^9.4.6",

@@ -1,69 +1,92 @@
 import * as React from "react";
+import axios, { AxiosPromise, AxiosError } from 'axios';
+import { PaintingCard } from "./paintings/card";
+import { Painting } from "./paintings/model";
 import 'bootstrap';
-import axios from 'axios';
 import bootbox from 'bootbox';
 
 interface MainProps {
-  compiler: string; 
-  framework: string;
-  ApiBaseUrl: string;
+    compiler: string; 
+    framework: string;
+    ApiBaseUrl: string;
 }
 
 interface MainData {
-  paintings: string[];
-  paintingCount: number;
+    paintings: Painting[];
+    paintingCount: number;
+    error: string;
 }
 
 export class Main extends React.Component<MainProps, MainData> {
-  constructor(props: MainProps) {
-    super(props);
-    this.state = {
-      paintings: [],
-      paintingCount: 0
-    };
-  }
+    constructor(props: MainProps) {
+        super(props);
+        this.state = {
+            paintings: [],
+            paintingCount: 0,
+            error: ''
+        };
 
-  async getAll() {
-      const res = await axios(this.props.ApiBaseUrl + '/data');
-      return res;
-  }
+        axios.defaults.baseURL = this.props.ApiBaseUrl;
+    }
 
-  componentDidMount() {
 
-  }
+    getAllPaintingsCount = async () => {
+        try {
+            const res = await axios.get<number>('/paintings/all');
+            const data: number  = await res.data;
+            this.setState({ paintingCount: data });
+        } catch(e) {
+            throw new Error(e.message);
+        }
+    }
 
-  render() {
-    
-    return(
-      <>
-        <main role="main">
-            <div className="jumbotron">
+    getAllPaintings = async () => {
+        try {
+            const res = await axios.get<Painting[]>('/paintings');
+            const data: Painting[] = await res.data;
+            this.setState({ paintings: data });
+        } catch(e) {
+            throw new Error(e.message);
+        }
+    }
+
+    async componentDidMount(): Promise<void> {
+
+      await this.getAllPaintingsCount();
+      await this.getAllPaintings();        
+        
+    }
+
+    render() {
+        console.log(this.props.ApiBaseUrl, 'this.props.ApiBaseUrl');
+        const { paintings, paintingCount } = this.state;
+
+        console.log(paintings, 'paintings');
+        console.log(paintingCount, 'painting count');
+        //bootbox.alert(`<p>There was an error while getting data.</p><i></i>`);
+
+        return(
+          <>
+            <main role="main">
+                <div className="jumbotron">
+                    <div className="container">
+                      <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>
+                    </div>
+                </div>
                 <div className="container">
-                  <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>
+                    <div className="row">
+                        {
+                          paintings && paintings.map(painting => {
+                            return (
+                                <PaintingCard painting={painting} />
+                            );
+                        })
+                        }
+                    </div>
+                    <hr/>
                 </div>
-            </div>
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-md-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-md-4">
-                        <h2>Heading</h2>
-                        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                </div>
-                <hr/>
-            </div>
-        </main>
-      </>
-    ); 
-  }
+            </main>
+          </>
+        ); 
+      }
 }
