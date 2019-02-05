@@ -9,6 +9,9 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.14",
+    "@fortawesome/free-solid-svg-icons": "^5.7.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@types/bootbox": "^4.4.36",
     "@types/dotenv-webpack": "^1.7.0",
     "@types/jquery": "^3.3.29",
@@ -25,7 +28,7 @@
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
-    "popper.js": "^1.14.6",
+    "popper.js": "^1.14.7",
     "postcss-loader": "^3.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

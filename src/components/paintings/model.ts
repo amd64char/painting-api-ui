@@ -9,7 +9,7 @@ export interface Painting {
     name: string;
     techniques: string[];
     dateModified: string;
-    modified: string;
+    dateCreated: string;
 }
 
     
