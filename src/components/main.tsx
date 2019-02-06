@@ -84,12 +84,12 @@ export class Main extends React.Component<MainProps, MainData> {
                     </div>
                 </div>
                 <div className="container">
-                    <div className="accordion" id="accordionExample">
-                        <button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <div className="accordion" id="addPainting">
+                        <button className="addButton btn btn-link mb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="false" aria-controls="collapseAdd">
                             Add New Painting
                         </button>
-                        <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <PaintingAdd />
+                        <div id="collapseAdd" className="mb-3 p-3 border border-primary collapse" aria-labelledby="headingThree" data-parent="#addPainting">
+                            <PaintingAdd ApiBaseUrl={this.props.ApiBaseUrl} />
                         </div>
                     </div>
                 </div>

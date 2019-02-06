@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Painting } from "./model";
 import * as moment from "moment";
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface AddProps {
-
+    ApiBaseUrl: string;
 }
-
 
 export class PaintingAdd extends React.Component<AddProps, Painting> {
     constructor(props: AddProps) {
@@ -23,14 +23,15 @@ export class PaintingAdd extends React.Component<AddProps, Painting> {
             dateCreated: moment().date.toString()
         };
 
+        axios.defaults.baseURL = this.props.ApiBaseUrl;
     }
 
-    handleSubmit = () => {
-
-    }
-
-    handleInputChange = () => {
-
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let obj: any = {};
+        const propName: string = event.currentTarget.name;
+        obj[propName] = event.currentTarget.value;
+        this.setState({ ...obj });
+        //console.log(this.state, 'current state');
     }
 
     handleTechniqueNameChange = (index: number, event: any) => {
@@ -61,8 +62,24 @@ export class PaintingAdd extends React.Component<AddProps, Painting> {
             techniques: techniques
         });
         //console.log(this.state.techniques, 'techniques');
+    } 
 
-      }; 
+    handlePaintingAdd = async () => {
+        const postObj = { 
+            artist: this.state.artist, 
+            name: this.state.name,
+            url: this.state.url,
+            techniques: this.state.techniques
+        };
+        try {
+            const res = await axios.post<Painting[]>('/paintings', postObj);
+            const data: Painting[] = await res.data;
+            //console.log(data, 'new painting');
+        } catch(e) {
+            bootbox.alert(e.message);
+            //throw new Error(e.message);
+        }
+    }
 
     componentDidMount() {
         
@@ -74,7 +91,7 @@ export class PaintingAdd extends React.Component<AddProps, Painting> {
 
         return(
             <>
-                <form>
+                <form onSubmit={this.handlePaintingAdd}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="name">Painting Name:</label>
