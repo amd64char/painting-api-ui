@@ -45,6 +45,14 @@ $cards-per-line: (
   border-bottom: 1px solid $secondary-color;
 }
 
+/* larger card image */
+.img-large {
+  max-width: 100%;
+  height: auto;
+  max-height: 550px;
+  object-fit: cover;
+}
+
 /* site styles */
 body {
   padding: 0;
@@ -52,6 +60,10 @@ body {
 
 h1 {
   color: $primary-color; 
+}
+
+.modal-header {
+  display: block;
 }
 
 /* insert styles */

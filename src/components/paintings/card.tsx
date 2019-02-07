@@ -2,6 +2,7 @@ import * as React from "react";
 import { Painting } from "./model";
 import * as moment from "moment";
 
+const bootbox = require('bootbox');
 interface CardProps {
     painting: Painting;
     paintingId: string;
@@ -11,6 +12,15 @@ export class PaintingCard extends React.Component<CardProps, Painting> {
     constructor(props: CardProps) {
         super(props);
 
+    }
+
+    openLargeImage = (url: string, name: string) => {
+        bootbox.alert({
+            message: `<p class="text-center"><img class="img-large" src="${url}" /></p>`,
+            title: name,
+            size: 'large',
+            backdrop: true
+        });
     }
     
     componentDidMount() {
@@ -25,7 +35,9 @@ export class PaintingCard extends React.Component<CardProps, Painting> {
         return(
             <>
                 <div key={paintingId} className="card mb-3">
-                    <img src={painting.url} className="card-img-top img-thumb" alt={painting.name} />
+                    <a href="#" onClick={(e) => this.openLargeImage(painting.url, painting.name)}>
+                        <img src={painting.url} className="card-img-top img-thumb" alt={painting.name} />
+                    </a>
                     <div className="card-body">
                         <h5 className="card-title">{painting.name}</h5>
                         <p className="card-text">{painting.artist}</p>
