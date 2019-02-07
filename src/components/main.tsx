@@ -4,7 +4,8 @@ import { PaintingCard } from "./paintings/card";
 import { PaintingAdd } from "./paintings/add";
 import { Painting } from "./paintings/model";
 import 'bootstrap';
-import bootbox from 'bootbox';
+
+const bootbox = require('bootbox');
 
 interface MainProps {
     compiler: string; 
@@ -24,15 +25,15 @@ export class Main extends React.Component<MainProps, MainData> {
         this.state = {
             paintings: [],
             paintingCount: 0,
-            error: ''
+            error: '',
         };
 
         axios.defaults.baseURL = this.props.ApiBaseUrl;
     }
 
     displayError = (error: string) => {
-        //bootbox.alert(`<p>There was an error while getting data:</p><p><i>${error}</i></p>`);
-        alert(`There was an error while getting data.\n${error}`);
+        bootbox.alert(`<p>There was an error while getting data:</p><p><i>${error}</i></p>`);
+        //alert(`There was an error while getting data.\n${error}`);
     }
 
     getAllPaintingsCount = async () => {
@@ -71,7 +72,7 @@ export class Main extends React.Component<MainProps, MainData> {
 
     render() {
         const { paintings, paintingCount } = this.state;
-        console.log(paintings, 'paintings');
+        //console.log(paintings, 'paintings');
         //console.log(paintingCount, 'painting count');
 
         return(
@@ -93,11 +94,10 @@ export class Main extends React.Component<MainProps, MainData> {
                         </div>
                     </div>
                 </div>
-                <div className="container">
+                <div className="container-fluid">
                     <div className="card-deck">
                       {
                         paintings && paintings.map((painting, index) => {
-                            // Render 2 cards at a time - the current and previous items
                             return (
                                 <PaintingCard key={index} paintingId={painting.id} painting={painting} />
                             );

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 
+const bootbox = require('bootbox');
+
 interface AddProps {
     ApiBaseUrl: string;
 }
@@ -110,7 +112,7 @@ export class PaintingAdd extends React.Component<AddProps, Painting> {
                         <label htmlFor="inputAddress2">Painting Attributes:</label>
                         {
                             techniques && techniques.map((name, index) => (
-                                <div className="input-group mb-2">
+                                <div key={`attr${index + 1}`} className="input-group mb-2">
                                     <input
                                         type="text"
                                         placeholder={`Atrribute #${index + 1}`}
